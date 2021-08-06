@@ -1,3 +1,6 @@
+// https://github.com/go-redis/redis
+// https://pkg.go.dev/github.com/go-redis/redis/v8
+
 package main
 
 import (

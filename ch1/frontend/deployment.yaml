@@ -16,9 +16,9 @@ spec:
         app: frontend
     spec:
       containers:
-        - image: ghcr.io/r-medina/kbp-app:latest
+        - name: frontend
+          image: ghcr.io/r-medina/kbp-app:latest
           imagePullPolicy: IfNotPresent
-          name: frontend
           resources:
             requests:
               cpu: "1.0"
@@ -26,5 +26,17 @@ spec:
             limits:
               cpu: "1.0"
               memory: "1G"
+          volumeMounts:
+            - name: passwd-volume
+              readOnly: true
+              mountPath: "etc/redis-passwd"
+          env:
+            - name: JOURNAL_ENTRIES
+              value: "5"
       imagePullSecrets:
-      - name: pullsecret
+        - name: pullsecret
+      volumes:
+        - name: passwd-volume
+          secret:
+            secretName: redis-passwd
+---
